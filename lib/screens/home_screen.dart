@@ -6,6 +6,7 @@ import '../constants/app_icons.dart';
 import 'leaderboard_screen.dart';
 import 'library_screen.dart';
 import 'profile_screen.dart';
+import 'home_screen2.dart'; // Import the new HomeScreen2
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,58 +20,55 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // This list holds the different screens we can navigate to
   final List<Widget> _screens = [
-    // Home screen content (index 0) - Now with 2x2 grid
-    Column(
-      children: [
-        const SizedBox(height: 20), // Space after header text
+    // Home screen content (index 0) - Now positioned to be centered
+    Padding(
+      padding: const EdgeInsets.only(top: 20, bottom: 30),
+      child: Center(
+        child: GridView.count(
+          crossAxisCount: 2, // 2 columns for a 2x2 grid
+          mainAxisSpacing: 20, // Vertical spacing
+          crossAxisSpacing: 20, // Horizontal spacing
+          shrinkWrap: true, // Takes up only the space needed
+          physics: const NeverScrollableScrollPhysics(), // Prevents independent scrolling
+          children: [
+            // Warm-Up action
+            HomeAction(
+              iconPath: AppIcons.warmup,
+              label: 'Warm-Up',
+              onTap: () {
+                // Navigation logic would go here
+              },
+            ),
 
-        // 2x2 Grid of action buttons
-        Expanded(
-          child: GridView.count(
-            crossAxisCount: 2, // 2 columns for a 2x2 grid
-            mainAxisSpacing: 20, // Vertical spacing
-            crossAxisSpacing: 20, // Horizontal spacing
-            physics: const NeverScrollableScrollPhysics(), // Prevents independent scrolling
-            children: [
-              // Warm-Up action
-              HomeAction(
-                iconPath: AppIcons.warmup,
-                label: 'Warm-Up',
-                onTap: () {
-                  // Navigation logic would go here
-                },
-              ),
+            // Workout action
+            HomeAction(
+              iconPath: AppIcons.workout,
+              label: 'Workout',
+              onTap: () {
+                // Navigation logic would go here
+              },
+            ),
 
-              // Workout action
-              HomeAction(
-                iconPath: AppIcons.workout,
-                label: 'Workout',
-                onTap: () {
-                  // Navigation logic would go here
-                },
-              ),
+            // Recovery action
+            HomeAction(
+              iconPath: AppIcons.recover,
+              label: 'Recovery',
+              onTap: () {
+                // Navigation logic would go here
+              },
+            ),
 
-              // Recovery action
-              HomeAction(
-                iconPath: AppIcons.recover,
-                label: 'Recovery',
-                onTap: () {
-                  // Navigation logic would go here
-                },
-              ),
-
-              // Schedule action
-              HomeAction(
-                iconPath: AppIcons.schedule,
-                label: 'Schedule',
-                onTap: () {
-                  // Navigation logic would go here
-                },
-              ),
-            ],
-          ),
+            // Schedule action
+            HomeAction(
+              iconPath: AppIcons.schedule,
+              label: 'Schedule',
+              onTap: () {
+                // Navigation logic would go here
+              },
+            ),
+          ],
         ),
-      ],
+      ),
     ),
     // Leaderboard (index 1)
     const LeaderboardScreen(),
@@ -119,39 +117,57 @@ class _HomeScreenState extends State<HomeScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Training Mode toggle - fixed height with content centered
-            Container(
-              height: 40, // Fixed height to match the streak counter
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              decoration: BoxDecoration(
-                color: const Color(0xFF1D1B20),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Text in Poppins Medium Italic
-                  const Text(
-                    'Training Mode',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w500, // Medium
-                      fontSize: 16, // Increased font size
-                      color: Colors.white,
+            // Training Mode toggle - now with navigation
+            GestureDetector(
+              onTap: () {
+                // Navigate to HomeScreen2 when Training Mode is clicked
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen2()),
+                ).then((value) {
+                  // Handle return value (potentially switching tabs)
+                  if (value != null && value is int) {
+                    setState(() {
+                      _selectedIndex = value;
+                    });
+                  }
+                });
+              },
+              child: Container(
+                height: 40, // Fixed height to match the streak counter
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF1D1B20),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Text in Poppins Medium Italic
+                    const Text(
+                      'Training Mode',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.w500,
+                        // Medium
+                        fontSize: 16,
+                        // Increased font size
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  // Green dot indicator
-                  Container(
-                    width: 12,
-                    height: 12,
-                    decoration: const BoxDecoration(
-                      color: Colors.green,
-                      shape: BoxShape.circle,
+                    const SizedBox(width: 8),
+                    // Green dot indicator
+                    Container(
+                      width: 12,
+                      height: 12,
+                      decoration: const BoxDecoration(
+                        color: Colors.green,
+                        shape: BoxShape.circle,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 
@@ -201,7 +217,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 24,
                   width: 24,
                   colorFilter: const ColorFilter.mode(
-                    Color(0xFF1D1B20), // Using the dark color for the icon itself
+                    Color(0xFF1D1B20),
+                    // Using the dark color for the icon itself
                     BlendMode.srcIn,
                   ),
                 ),
@@ -211,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
 
         // Spacer between top controls and header text
-        const SizedBox(height: 40),
+        const SizedBox(height: 64),
 
         // Main header text "What Do You Want To Do Today?"
         const Text(
