@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../components/navbar.dart';
+import '../components/home_action.dart'; // Import the HomeAction component
 import '../constants/app_icons.dart';
 import 'leaderboard_screen.dart';
 import 'library_screen.dart';
@@ -18,16 +19,55 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // This list holds the different screens we can navigate to
   final List<Widget> _screens = [
-    // Home screen content (index 0)
+    // Home screen content (index 0) - Now with 2x2 grid
     Column(
       children: [
-        // Main content of home screen
+        const SizedBox(height: 20), // Space after header text
+
+        // 2x2 Grid of action buttons
         Expanded(
-          child: Center(
-            child: Text(
-              '',
-              style: TextStyle(fontSize: 24),
-            ),
+          child: GridView.count(
+            crossAxisCount: 2, // 2 columns for a 2x2 grid
+            mainAxisSpacing: 20, // Vertical spacing
+            crossAxisSpacing: 20, // Horizontal spacing
+            physics: const NeverScrollableScrollPhysics(), // Prevents independent scrolling
+            children: [
+              // Warm-Up action
+              HomeAction(
+                iconPath: AppIcons.warmup,
+                label: 'Warm-Up',
+                onTap: () {
+                  // Navigation logic would go here
+                },
+              ),
+
+              // Workout action
+              HomeAction(
+                iconPath: AppIcons.workout,
+                label: 'Workout',
+                onTap: () {
+                  // Navigation logic would go here
+                },
+              ),
+
+              // Recovery action
+              HomeAction(
+                iconPath: AppIcons.recover,
+                label: 'Recovery',
+                onTap: () {
+                  // Navigation logic would go here
+                },
+              ),
+
+              // Schedule action
+              HomeAction(
+                iconPath: AppIcons.schedule,
+                label: 'Schedule',
+                onTap: () {
+                  // Navigation logic would go here
+                },
+              ),
+            ],
           ),
         ),
       ],
@@ -79,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Training Mode toggle
+            // Training Mode toggle - fixed height with content centered
             Container(
               height: 40, // Fixed height to match the streak counter
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -155,11 +195,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 const SizedBox(width: 16),
 
-                // Notification bell
+                // Notification bell without background
                 SvgPicture.asset(
                   AppIcons.notification,
-                  height: 32,
-                  width: 32,
+                  height: 24,
+                  width: 24,
                   colorFilter: const ColorFilter.mode(
                     Color(0xFF1D1B20), // Using the dark color for the icon itself
                     BlendMode.srcIn,
