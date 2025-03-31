@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../components/navbar.dart';
+import 'leaderboard_screen.dart';
+import 'library_screen.dart';
+import 'profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -11,6 +14,32 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
+  // This list holds the different screens we can navigate to
+  final List<Widget> _screens = [
+    // Home screen content (index 0)
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // We'll move the header here later
+        SizedBox(height: 24),
+        Expanded(
+          child: Center(
+            child: Text(
+              'PeakFit Home Screen Content',
+              style: TextStyle(fontSize: 24),
+            ),
+          ),
+        ),
+      ],
+    ),
+    // Leaderboard (index 1)
+    const LeaderboardScreen(),
+    // Library (index 2)
+    const LibraryScreen(),
+    // Profile (index 3)
+    const ProfileScreen(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,19 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // App header with greeting and profile
-              _buildHeader(),
+              // Only show header on home screen
+              if (_selectedIndex == 0) _buildHeader(),
 
-              const SizedBox(height: 24),
-
-              // Main content area - we'll fill this in as we build components
+              // Show the selected screen
               Expanded(
-                child: Center(
-                  child: Text(
-                    'PeakFit Home Screen Content',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                ),
+                child: _screens[_selectedIndex],
               ),
             ],
           ),

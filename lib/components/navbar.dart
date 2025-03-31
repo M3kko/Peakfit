@@ -64,19 +64,40 @@ class CustomNavBar extends StatelessWidget {
     // Check if this item is the currently selected one
     final isSelected = selectedIndex == index;
 
-    return GestureDetector(
-      // When this item is tapped, call the onItemTapped callback with this item's index
-      onTap: () => onItemTapped(index),
-      child: SvgPicture.asset(
-        iconPath,
-        // Set a consistent height for all icons
-        height: 32,
-        // Change the color based on selection state
-        colorFilter: ColorFilter.mode(
-          isSelected
-              ? Theme.of(context).primaryColor  // Selected color (from theme)
-              : Colors.black.withOpacity(0.5),  // Unselected color
-          BlendMode.srcIn,
+    return InkWell(
+      // InkWell provides tap feedback with ripple effect
+      onTap: () {
+        // When tapped, trigger the callback with a slight delay for animation
+        Future.delayed(const Duration(milliseconds: 100), () {
+          onItemTapped(index);
+        });
+      },
+      // Make the touch target larger than the icon itself
+      borderRadius: BorderRadius.circular(12),
+      splashColor: Theme.of(context).primaryColor.withOpacity(0.1),
+      highlightColor: Theme.of(context).primaryColor.withOpacity(0.2),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0), // Adds padding to increase tap target
+        child: TweenAnimationBuilder(
+          // This animation runs whenever a property changes
+          tween: Tween<double>(begin: 1.0, end: isSelected ? 1.2 : 1.0),
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeInOut, // Smooth animation curve
+          builder: (context, double scale, child) {
+            return Transform.scale(
+              scale: scale,
+              child: SvgPicture.asset(
+                iconPath,
+                height: 28,
+                colorFilter: ColorFilter.mode(
+                  isSelected
+                      ? Theme.of(context).primaryColor
+                      : Colors.black.withOpacity(0.5),
+                  BlendMode.srcIn,
+                ),
+              ),
+            );
+          },
         ),
       ),
     );
