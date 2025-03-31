@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../components/navbar.dart';
+import '../constants/app_icons.dart';
 import 'leaderboard_screen.dart';
 import 'library_screen.dart';
 import 'profile_screen.dart';
@@ -18,14 +20,12 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _screens = [
     // Home screen content (index 0)
     Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // We'll move the header here later
-        SizedBox(height: 24),
+        // Main content of home screen
         Expanded(
           child: Center(
             child: Text(
-              'PeakFit Home Screen Content',
+              '',
               style: TextStyle(fontSize: 24),
             ),
           ),
@@ -48,7 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Only show header on home screen
               if (_selectedIndex == 0) _buildHeader(),
@@ -73,39 +72,118 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    // Using a Column to stack the top controls and the main header text
+    return Column(
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        // Top row with Training Mode, Streak, and Notification
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Good morning,',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
+            // Training Mode toggle
+            Container(
+              height: 40, // Fixed height to match the streak counter
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              decoration: BoxDecoration(
+                color: const Color(0xFF1D1B20),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Text in Poppins Medium Italic
+                  const Text(
+                    'Training Mode',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w500, // Medium
+                      fontSize: 16, // Increased font size
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  // Green dot indicator
+                  Container(
+                    width: 12,
+                    height: 12,
+                    decoration: const BoxDecoration(
+                      color: Colors.green,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 4),
-            const Text(
-              'James',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+
+            // Right side controls: Streak and Notification
+            Row(
+              children: [
+                // Streak counter - also with fixed height
+                Container(
+                  height: 40, // Fixed height to match training mode
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1D1B20),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Flame icon
+                      SvgPicture.asset(
+                        AppIcons.streak,
+                        height: 24,
+                        width: 24,
+                        colorFilter: const ColorFilter.mode(
+                          Colors.orange,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      // Number in Poppins Regular
+                      const Text(
+                        '5',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(width: 16),
+
+                // Notification bell
+                SvgPicture.asset(
+                  AppIcons.notification,
+                  height: 32,
+                  width: 32,
+                  colorFilter: const ColorFilter.mode(
+                    Color(0xFF1D1B20), // Using the dark color for the icon itself
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
-        Container(
-          height: 48,
-          width: 48,
-          decoration: BoxDecoration(
-            color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: const Icon(
-            Icons.person,
-            color: Colors.grey,
+
+        // Spacer between top controls and header text
+        const SizedBox(height: 40),
+
+        // Main header text "What Do You Want To Do Today?"
+        const Text(
+          'What Do You Want\nTo Do Today?',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic,
+            fontSize: 32,
+            color: Color(0xFF1D1B20),
+            height: 1.2, // Reduces line height slightly for tighter multi-line text
           ),
         ),
       ],

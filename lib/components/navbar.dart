@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../constants/custom_icons.dart';
+import '../constants/app_icons.dart';
 
 class CustomNavBar extends StatelessWidget {
   // This index tells us which tab is currently selected
