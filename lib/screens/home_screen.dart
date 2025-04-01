@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
               // Show content based on selected tab
               Expanded(
                 child: _selectedIndex == 0
-                    ? _buildHomeContent()
+                    ? _buildHomeContent(context)
                     : _screens[_selectedIndex],
               ),
             ],
@@ -83,51 +83,55 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // Method to build the home content with grid and announcement cards
-  Widget _buildHomeContent() {
+  Widget _buildHomeContent(BuildContext context) {
     return Column(
       children: [
-        // Space after header text
-        const SizedBox(height: 30),
+        // Consistent space after header text
+        const SizedBox(height: 16),
 
-        // Grid of action buttons
-        GridView.count(
-          crossAxisCount: 2,
-          mainAxisSpacing: 20,
-          crossAxisSpacing: 20,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            HomeAction(
-              iconPath: AppIcons.warmup,
-              label: 'Warm-Up',
-              onTap: () {},
-            ),
-            HomeAction(
-              iconPath: AppIcons.workout,
-              label: 'Workout',
-              onTap: () {},
-            ),
-            HomeAction(
-              iconPath: AppIcons.recover,
-              label: 'Recovery',
-              onTap: () {},
-            ),
-            HomeAction(
-              iconPath: AppIcons.schedule,
-              label: 'Schedule',
-              onTap: () {},
-            ),
-          ],
-        ),
-
-        // Push announcement cards to the bottom
-        const Spacer(),
-
-        // Announcement cards
+        // Announcement cards directly below header
         _buildAnnouncementCards(),
 
-        // Space before navbar
-        const SizedBox(height: 20),
+        // Consistent space between announcement and grid
+        const SizedBox(height: 16),
+
+        // Grid of action buttons with fixed height instead of Expanded
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.42, // Using approximately 42% of screen height
+          child: GridView.count(
+            crossAxisCount: 2,
+            mainAxisSpacing: 16, // Consistent spacing
+            crossAxisSpacing: 16, // Consistent spacing
+            // Removed childAspectRatio to keep grid items square (default is 1.0)
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              HomeAction(
+                iconPath: AppIcons.workout,
+                label: 'Workout',
+                onTap: () {},
+              ),
+              HomeAction(
+                iconPath: AppIcons.checklist,
+                label: 'Checklist',
+                onTap: () {},
+              ),
+              HomeAction(
+                iconPath: AppIcons.schedule,
+                label: 'Schedule',
+                onTap: () {},
+              ),
+              HomeAction(
+                iconPath: AppIcons.journal,
+                label: 'Journal',
+                onTap: () {},
+              ),
+            ],
+          ),
+        ),
+
+        // Consistent space after grid
+        const SizedBox(height: 16),
       ],
     );
   }
@@ -247,8 +251,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
 
-        // Spacer between top controls and header text
-        const SizedBox(height: 40),
+        // Consistent spacing between top controls and header text
+        const SizedBox(height: 16), // Changed from 10 to 16 for consistency
 
         // Main header text "What Do You Want To Do Today?"
         const Text(
@@ -267,7 +271,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Build the announcement cards carousel
+  // Build the announcement cards carousel with integrated dots
   Widget _buildAnnouncementCards() {
     // Sample announcements with different colors and messages
     final List<Map<String, dynamic>> announcements = [
@@ -291,12 +295,13 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     ];
 
-    return Column(
-      children: [
-        // Card carousel
-        SizedBox(
-          height: 120,
-          child: PageView.builder(
+    // Using Stack to overlay pagination dots on the card itself
+    return SizedBox(
+      height: 120,
+      child: Stack(
+        children: [
+          // Card carousel
+          PageView.builder(
             controller: _announcementController,
             itemCount: announcements.length,
             itemBuilder: (context, index) {
@@ -383,28 +388,32 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
           ),
-        ),
 
-        // Indicator dots
-        const SizedBox(height: 12),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-            announcements.length,
-                (index) => Container(
-              margin: const EdgeInsets.symmetric(horizontal: 4),
-              width: 8,
-              height: 8,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: _currentAnnouncementPage == index
-                    ? const Color(0xFF1D1B20)
-                    : const Color(0xFFD9D9D9),
+          // Positioned dots at the bottom of the cards
+          Positioned(
+            bottom: 8,
+            left: 0,
+            right: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                announcements.length,
+                    (index) => Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  width: 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _currentAnnouncementPage == index
+                        ? Colors.white
+                        : Colors.white.withOpacity(0.5),
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
