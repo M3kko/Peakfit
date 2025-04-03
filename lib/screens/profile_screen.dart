@@ -122,4 +122,55 @@ class ProfileScreen extends StatelessWidget {
       ],
     );
   }
+
+  Widget _buildStatsSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Your Stats',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            color: Color(0xFF1D1B20),
+          ),
+        ),
+        const SizedBox(height: 12),
+        GridView.count(
+          crossAxisCount: 2,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+          children: [
+            _buildStatCard(
+              'Workouts',
+              '28',
+              AppIcons.workout,
+              const Color(0xFF4A66F4),
+            ),
+            _buildStatCard(
+              'Streak',
+              '5 days',
+              AppIcons.streak,
+              const Color(0xFFFF5757),
+            ),
+            _buildStatCard(
+              'Badges Earned',
+              '12',
+              AppIcons.trophy,
+              const Color(0xFF2CB67D),
+            ),
+            _buildStatCard(
+              'Hours',
+              '7',
+              AppIcons.hourglass,
+              const Color(0xFFFFA500),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 }
