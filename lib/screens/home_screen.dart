@@ -7,6 +7,10 @@ import 'leaderboard_screen.dart';
 import 'library_screen.dart';
 import 'profile_screen.dart';
 import 'home_screen2.dart';
+import 'workout_screen.dart';
+import 'checklist_screen.dart';
+import 'schedule_screen.dart';
+import 'journal_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -109,22 +113,42 @@ class _HomeScreenState extends State<HomeScreen> {
               HomeAction(
                 iconPath: AppIcons.workout,
                 label: 'Workout',
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const WorkoutScreen()),
+                  );
+                },
               ),
               HomeAction(
                 iconPath: AppIcons.checklist,
                 label: 'Checklist',
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ChecklistScreen()),
+                  );
+                },
               ),
               HomeAction(
                 iconPath: AppIcons.schedule,
                 label: 'Schedule',
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ScheduleScreen()),
+                  );
+                },
               ),
               HomeAction(
                 iconPath: AppIcons.journal,
                 label: 'Journal',
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const JournalScreen()),
+                  );
+                },
               ),
             ],
           ),
