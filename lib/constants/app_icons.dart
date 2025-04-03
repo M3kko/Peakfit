@@ -18,6 +18,6 @@ class AppIcons {
   static const String user = '${_basePath}user_icon.svg';
   static const String warmup = '${_basePath}warmup_icon.svg';
   static const String workout = '${_basePath}workout_icon.svg';
-  static const String clock = '${_basePath}clock_icon.svg';
+  static const String hourglass = '${_basePath}hourglass_icon.svg';
 // Add more icons as needed
 }
