@@ -29,7 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
   // This list holds the different screens we can navigate to
   final List<Widget> _screens = [
     // Each non-home screen
-    Container(), // Empty placeholder since we're building home content separately
+    Container(),
+    // Empty placeholder since we're building home content separately
     const LeaderboardScreen(),
     const LibraryScreen(),
     const ProfileScreen(),
@@ -101,11 +102,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
         // Grid of action buttons with fixed height instead of Expanded
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.42, // Using approximately 42% of screen height
+          height: MediaQuery
+              .of(context)
+              .size
+              .height * 0.42, // Using approximately 42% of screen height
           child: GridView.count(
             crossAxisCount: 2,
-            mainAxisSpacing: 16, // Consistent spacing
-            crossAxisSpacing: 16, // Consistent spacing
+            mainAxisSpacing: 16,
+            // Consistent spacing
+            crossAxisSpacing: 16,
+            // Consistent spacing
             // Removed childAspectRatio to keep grid items square (default is 1.0)
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -116,7 +122,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const WorkoutScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const WorkoutScreen()),
                   );
                 },
               ),
@@ -126,7 +133,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ChecklistScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const ChecklistScreen()),
                   );
                 },
               ),
@@ -136,7 +144,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ScheduleScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const ScheduleScreen()),
                   );
                 },
               ),
@@ -146,7 +155,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const JournalScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const JournalScreen()),
                   );
                 },
               ),
@@ -200,8 +210,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: TextStyle(
                         fontFamily: 'Poppins',
                         fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w500, // Medium
-                        fontSize: 16, // Increased font size
+                        fontWeight: FontWeight.w500,
+                        // Medium
+                        fontSize: 16,
+                        // Increased font size
                         color: Colors.white,
                       ),
                     ),
@@ -266,7 +278,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 24,
                   width: 24,
                   colorFilter: const ColorFilter.mode(
-                    Color(0xFF1D1B20), // Using the dark color for the icon itself
+                    Color(0xFF1D1B20),
+                    // Using the dark color for the icon itself
                     BlendMode.srcIn,
                   ),
                 ),
@@ -422,17 +435,18 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                 announcements.length,
-                    (index) => Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  width: 8,
-                  height: 8,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _currentAnnouncementPage == index
-                        ? Colors.white
-                        : Colors.white.withOpacity(0.5),
-                  ),
-                ),
+                    (index) =>
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 4),
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: _currentAnnouncementPage == index
+                            ? Colors.white
+                            : Colors.white.withOpacity(0.5),
+                      ),
+                    ),
               ),
             ),
           ),
