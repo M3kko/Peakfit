@@ -9,24 +9,24 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        body: SafeArea(child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 20.0, vertical: 16.0),
-            child: Column(
-              children: [
-                _buildProfileHeader(),
-                const SizedBox(height: 24),
-                _buildStatsSection(),
-                const SizedBox(height: 24),
-                _buildActivitySection(),
-                const SizedBox(height: 24),
-                _buildSettingsSection(),
-                const SizedBox(height: 32),
-              ],
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+              child: Column(
+                children: [
+                  _buildProfileHeader(),
+                  const SizedBox(height: 24),
+                  _buildStatsSection(),
+                  const SizedBox(height: 24),
+                  _buildActivitySection(),
+                  const SizedBox(height: 24),
+                  _buildSettingsSection(),
+                  const SizedBox(height: 32),
+                ],
+              ),
             ),
           ),
-        ),
         )
     );
   }
@@ -68,51 +68,58 @@ class ProfileScreen extends StatelessWidget {
                 size: 18,
               ),
             ),
-            const SizedBox(height: 16),
-            // USERNAME
-            const Text(
-              'Broderick Cotter',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-                color: Color(0xFF1D1B20),
-              ),
-            ),
-            const SizedBox(height: 4),
-            // JOIN DATE
-            Text(
-              'Member since Mar 2025',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 14,
-                color: Colors.grey[600],
-              ),
-            ),
-            const SizedBox(height: 16),
-            // Edit profile button
-            OutlinedButton(
-              onPressed: () {
-                // Navigate to edit profile screen
-              },
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                side: const BorderSide(color: Color(0xFF1D1B20), width: 1.5),
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              ),
-              child: const Text(
-                'Edit Profile',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF1D1B20),
-                ),
-              ),
-            ),
           ],
+        ),
+
+        const SizedBox(height: 16),
+
+        // USERNAME
+        const Text(
+          'Broderick Cotter',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+            color: Color(0xFF1D1B20),
+          ),
+        ),
+
+        const SizedBox(height: 4),
+
+        // JOIN DATE
+        Text(
+          'Member since Mar 2025',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 14,
+            color: Colors.grey[600],
+          ),
+        ),
+
+        const SizedBox(height: 16),
+
+        // Edit profile button
+        OutlinedButton(
+          onPressed: () {
+            // Navigate to edit profile screen
+          },
+          style: OutlinedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            side: const BorderSide(color: Color(0xFF1D1B20), width: 1.5),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          ),
+          child: const Text(
+            'Edit Profile',
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w500,
+              color: Color(0xFF1D1B20),
+            ),
+          ),
+        ),
+      ],
     );
   }
-
 }
